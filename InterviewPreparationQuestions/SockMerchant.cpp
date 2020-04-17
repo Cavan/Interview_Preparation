@@ -1,18 +1,38 @@
 #include "SockMerchant.h"
 
-
+#pragma warning(disable: 4996)
 
 
 // Complete the sockMerchant function below.
 int sockMerchant(int n, vector<int> ar) {
 
-
+	map<int, int>sockPairs;
+	map<int, int>::iterator it;
+	int nSocks = 0;
+	for (int i = 0; i < n; i++) {
+		int current = ar[i];
+		it = sockPairs.find(current);
+		if (it != sockPairs.end()) {
+			sockPairs[current]++;
+			if (sockPairs[current] == 2) {
+				nSocks++;
+				sockPairs[current] = 0;
+			}
+		}
+		else {
+			sockPairs[current] = 1;
+		}
+	}
+	
+	cout << "Matched Pairs: " << nSocks << endl;
+	
+	return nSocks;
 }
 
 
 
 void SolutionRunner() {
-	ofstream fout(getenv("OUTPUT_PATH"));
+	//ofstream fout(getenv("OUTPUT_PATH"));
 
 	int n;
 	cin >> n;
@@ -33,9 +53,9 @@ void SolutionRunner() {
 
 	int result = sockMerchant(n, ar);
 
-	fout << result << "\n";
+	//fout << result << "\n";
 
-	fout.close();
+	//fout.close();
 
 	//return 0;
 }
